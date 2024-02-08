@@ -1,0 +1,27 @@
+name: SonarQube Analysis
+
+on:
+    push:
+      branches:
+        - main
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: SonarQube Scan
+      run: |
+        ./gradlew sonarqube \
+          -Dsonar.host.url=http://52.87.252.140:9000 \
+          -Dsonar.login=squ_9eec4110ac86332e1aa012bd54c8c7779b707e30" \
+          -Dsonar.sources=src
